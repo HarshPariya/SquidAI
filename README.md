@@ -179,7 +179,9 @@ The app uses `next build --webpack` to avoid Turbopack symlink issues (e.g. on W
 **If you see `NO_SECRET` or "Please define a secret in production" in Render logs:**  
 Add **NEXTAUTH_SECRET** in Render → Environment (see table above), then click **Save Changes** and redeploy. The app does not read `.env.local` on Render — you must set every variable in the Render Environment tab.
 
-**Google Auth:** In [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials → your OAuth 2.0 Client → **Authorized redirect URIs**, add: `https://squidai.onrender.com/api/auth/callback/google` (use your actual Render URL). Without this, Google sign-in will fail.
+**Google Auth:** In [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials → your OAuth 2.0 Client (Web application) → **Authorized redirect URIs**, add **exactly** (no trailing slash): `https://squidai.onrender.com/api/auth/callback/google`. Without this, Google sign-in will fail.
+
+**If you see "Access blocked: Authorization Error" or Error 400: invalid_request:** The redirect URI in Google Console must match **exactly** (same protocol, no trailing slash). Add only: `https://squidai.onrender.com/api/auth/callback/google`. If your OAuth consent screen is in **Testing** mode, add your Gmail under OAuth consent screen → Test users.
 
 **If you see "Server error" or "There is a problem with the server configuration" at `/api/auth/error`:**  
 Same as above: add **NEXTAUTH_SECRET**, **NEXTAUTH_URL**, and **AUTH_TRUST_HOST** in Render → Environment, add the callback URL in Google Console, then redeploy.

@@ -27,22 +27,26 @@ export default function AuthErrorPage() {
         <p className="text-amber-400/90 text-sm font-medium mb-4 rounded-lg bg-amber-500/10 border border-amber-500/30 p-3">
           If after clicking your Google account you get <strong>&quot;This site can&apos;t be reached&quot;</strong> or <strong>localhost:3000</strong>: set <strong>NEXTAUTH_URL</strong> to your live URL (e.g. <code className="bg-zinc-800 px-1 rounded">https://squidai.onrender.com</code>) in Render → Environment, and add that callback URL in Google Cloud Console (see below). Never use <code className="bg-zinc-800 px-1 rounded">http://localhost:3000</code> on Render.
         </p>
+        <p className="text-amber-400/90 text-sm font-medium mb-4 rounded-lg bg-amber-500/10 border border-amber-500/30 p-3">
+          If you see <strong>&quot;Access blocked: Authorization Error&quot;</strong> or <strong>Error 400: invalid_request</strong> from Google: the <strong>Authorized redirect URI</strong> in Google Cloud Console must match <strong>exactly</strong> (no trailing slash). Add this only: <code className="bg-zinc-800 px-1 rounded text-pink-400 block mt-1 break-all">https://squidai.onrender.com/api/auth/callback/google</code> If your app is in &quot;Testing&quot; mode, add your Google account as a test user under OAuth consent screen.
+        </p>
 
         <div className="space-y-4 text-sm">
           <p className="font-semibold text-gray-300">On Render → your service → Environment, set:</p>
           <ul className="list-disc list-inside space-y-2 text-gray-400">
             <li><strong className="text-gray-300">NEXTAUTH_SECRET</strong> — required. Run <code className="bg-zinc-800 px-1 rounded">openssl rand -base64 32</code> in a terminal and paste the result (fixes NO_SECRET errors)</li>
-            <li><strong className="text-gray-300">NEXTAUTH_URL</strong> — <code className="bg-zinc-800 px-1 rounded text-pink-400">https://squidai.onrender.com</code> (your actual Render URL)</li>
+            <li><strong className="text-gray-300">NEXTAUTH_URL</strong> — <code className="bg-zinc-800 px-1 rounded text-pink-400">https://squidai.onrender.com</code> (no trailing slash)</li>
             <li><strong className="text-gray-300">AUTH_TRUST_HOST</strong> — <code className="bg-zinc-800 px-1 rounded">true</code></li>
             <li><strong className="text-gray-300">GOOGLE_CLIENT_ID</strong> and <strong className="text-gray-300">GOOGLE_CLIENT_SECRET</strong> — from Google Cloud Console</li>
           </ul>
 
-          <p className="font-semibold text-gray-300 pt-2">In Google Cloud Console:</p>
+          <p className="font-semibold text-gray-300 pt-2">In Google Cloud Console (exact match required):</p>
           <ul className="list-disc list-inside space-y-1 text-gray-400">
-            <li>APIs & Services → Credentials → your OAuth 2.0 Client</li>
-            <li>Under <strong className="text-gray-300">Authorized redirect URIs</strong>, add: <br />
+            <li>APIs & Services → Credentials → your OAuth 2.0 Client ID (Web application)</li>
+            <li>Under <strong className="text-gray-300">Authorized redirect URIs</strong>, add <strong>exactly</strong> (copy-paste, no trailing slash): <br />
               <code className="bg-zinc-800 px-1 rounded text-pink-400 block mt-1 break-all">https://squidai.onrender.com/api/auth/callback/google</code>
             </li>
+            <li>If the app is in Testing: OAuth consent screen → Test users → add your Gmail address</li>
           </ul>
         </div>
 
