@@ -24,6 +24,9 @@ export default function AuthErrorPage() {
             If you see <code className="bg-zinc-800 px-1 rounded">NO_SECRET</code> in Render logs: add <strong>NEXTAUTH_SECRET</strong> in Render → Environment (see below), Save, then redeploy.
           </p>
         )}
+        <p className="text-amber-400/90 text-sm font-medium mb-4 rounded-lg bg-amber-500/10 border border-amber-500/30 p-3">
+          If after clicking your Google account you get <strong>&quot;This site can&apos;t be reached&quot;</strong> or <strong>localhost:3000</strong>: set <strong>NEXTAUTH_URL</strong> to your live URL (e.g. <code className="bg-zinc-800 px-1 rounded">https://squidai.onrender.com</code>) in Render → Environment, and add that callback URL in Google Cloud Console (see below). Never use <code className="bg-zinc-800 px-1 rounded">http://localhost:3000</code> on Render.
+        </p>
 
         <div className="space-y-4 text-sm">
           <p className="font-semibold text-gray-300">On Render → your service → Environment, set:</p>

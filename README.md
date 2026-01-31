@@ -184,6 +184,9 @@ Add **NEXTAUTH_SECRET** in Render → Environment (see table above), then click 
 **If you see "Server error" or "There is a problem with the server configuration" at `/api/auth/error`:**  
 Same as above: add **NEXTAUTH_SECRET**, **NEXTAUTH_URL**, and **AUTH_TRUST_HOST** in Render → Environment, add the callback URL in Google Console, then redeploy.
 
+**If after clicking your Google account you get "This site can't be reached" or the URL is `localhost:3000/api/auth/callback/google`:**  
+NextAuth is using localhost as the callback URL. On **Render → Environment**, set **NEXTAUTH_URL** to your live URL: `https://squidai.onrender.com` (not `http://localhost:3000`). In **Google Cloud Console** → your OAuth client → **Authorized redirect URIs**, add `https://squidai.onrender.com/api/auth/callback/google`. Save and redeploy. Use `localhost` only for local dev (with `npm run dev`).
+
 ---
 
 ## 📄 Docs
