@@ -24,17 +24,6 @@
 
 ---
 
-## 📸 Screenshots
-
-*Add your own screenshots to [`docs/screenshots/`](./docs/screenshots/) — see [docs/screenshots/README.md](./docs/screenshots/README.md) for naming and tips.*
-
-| Landing / Hero | Chat Interface | Features |
-|----------------|----------------|----------|
-| [![SquidAI Hero](./docs/screenshots/hero.png)](./docs/screenshots/hero.png) | [![SquidAI Chat](./docs/screenshots/chat.png)](./docs/screenshots/chat.png) | [![SquidAI Features](./docs/screenshots/features.png)](./docs/screenshots/features.png) |
-
-*Place `hero.png`, `chat.png`, and `features.png` in `docs/screenshots/` to show your SquidAI UI here.*
-
----
 
 ## 🚀 Features
 
