@@ -1,14 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 /** NextAuth redirects here on auth errors (pages.error). Shows a clear checklist for Render. */
-export default function AuthErrorPage({
-  searchParams,
-}: {
-  searchParams: { error?: string };
-}) {
-  const error = searchParams?.error ?? "Configuration";
+export default function AuthErrorPage() {
+  const searchParams = useSearchParams();
+  const error = searchParams?.get("error") ?? "Configuration";
   const isConfig = error === "Configuration" || error === "AccessDenied";
 
   return (
