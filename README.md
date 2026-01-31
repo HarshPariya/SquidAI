@@ -158,6 +158,8 @@ SquidAI/
 
 The app uses `next build --webpack` to avoid Turbopack symlink issues (e.g. on Windows) with the MongoDB package.
 
+**Render:** If you see a "non-standard NODE_ENV" warning during build, set the build environment variable `NODE_ENV=production` in your Render service settings.
+
 ---
 
 ## 📄 Docs

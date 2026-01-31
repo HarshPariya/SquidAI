@@ -2,9 +2,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Orbitron, Rajdhani } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/components/auth/auth-context";
-import { SessionProvider } from "@/components/auth/session-provider";
-import { ChatHistoryProvider } from "@/components/chat/chat-history-context";
+import { DynamicProviders } from "@/components/auth/dynamic-providers";
 import ShapesBackground from "@/components/landing/ShapesBackground";
 
 const geistSans = Geist({
@@ -44,14 +42,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} ${rajdhani.variable} antialiased bg-background text-foreground min-h-screen`}
       >
-        <SessionProvider>
-          <AuthProvider>
-            <ChatHistoryProvider>
-            <ShapesBackground />
-            {children}
-            </ChatHistoryProvider>
-          </AuthProvider>
-        </SessionProvider>
+        <DynamicProviders>
+          <ShapesBackground />
+          {children}
+        </DynamicProviders>
       </body>
     </html>
   );
