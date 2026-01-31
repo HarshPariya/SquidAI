@@ -8,6 +8,7 @@ export default function AuthErrorPage() {
   const searchParams = useSearchParams();
   const error = searchParams?.get("error") ?? "Configuration";
   const isConfig = error === "Configuration" || error === "AccessDenied";
+  const isNoSecret = error === "Configuration" || isConfig;
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center p-6">
@@ -15,14 +16,19 @@ export default function AuthErrorPage() {
         <h1 className="text-2xl font-bold text-pink-500 mb-2">Authentication error</h1>
         <p className="text-gray-400 mb-6">
           {isConfig
-            ? "There is a problem with the server configuration. Fix the items below on Render and in Google Cloud, then try again."
+            ? "There is a problem with the server configuration. Add the env vars below in Render → Environment, then redeploy."
             : `Error: ${error}`}
         </p>
+        {isNoSecret && (
+          <p className="text-amber-400/90 text-sm font-medium mb-4 rounded-lg bg-amber-500/10 border border-amber-500/30 p-3">
+            If you see <code className="bg-zinc-800 px-1 rounded">NO_SECRET</code> in Render logs: add <strong>NEXTAUTH_SECRET</strong> in Render → Environment (see below), Save, then redeploy.
+          </p>
+        )}
 
         <div className="space-y-4 text-sm">
           <p className="font-semibold text-gray-300">On Render → your service → Environment, set:</p>
           <ul className="list-disc list-inside space-y-2 text-gray-400">
-            <li><strong className="text-gray-300">NEXTAUTH_SECRET</strong> — e.g. run <code className="bg-zinc-800 px-1 rounded">openssl rand -base64 32</code> and paste the result</li>
+            <li><strong className="text-gray-300">NEXTAUTH_SECRET</strong> — required. Run <code className="bg-zinc-800 px-1 rounded">openssl rand -base64 32</code> in a terminal and paste the result (fixes NO_SECRET errors)</li>
             <li><strong className="text-gray-300">NEXTAUTH_URL</strong> — <code className="bg-zinc-800 px-1 rounded text-pink-400">https://squidai.onrender.com</code> (your actual Render URL)</li>
             <li><strong className="text-gray-300">AUTH_TRUST_HOST</strong> — <code className="bg-zinc-800 px-1 rounded">true</code></li>
             <li><strong className="text-gray-300">GOOGLE_CLIENT_ID</strong> and <strong className="text-gray-300">GOOGLE_CLIENT_SECRET</strong> — from Google Cloud Console</li>
