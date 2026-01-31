@@ -9,7 +9,7 @@ export default function ShapesBackground() {
     <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
       {/* Left / Right soft edge gradients using SquidAI pink */}
       <div
-        className="absolute left-0 top-0 h-full w-1/3 pointer-events-none"
+        className="absolute left-0 top-0 h-full w-1/3 min-w-0 pointer-events-none"
         style={{
           background: 'linear-gradient(90deg, rgba(244,114,182,0.20) 0%, rgba(244,63,94,0.06) 45%, transparent 100%)',
           filter: 'blur(60px)'
@@ -17,35 +17,35 @@ export default function ShapesBackground() {
       />
 
       <div
-        className="absolute right-0 top-0 h-full w-1/3 pointer-events-none"
+        className="absolute right-0 top-0 h-full w-1/3 min-w-0 pointer-events-none"
         style={{
           background: 'linear-gradient(270deg, rgba(244,114,182,0.18) 0%, rgba(244,63,94,0.04) 45%, transparent 100%)',
           filter: 'blur(60px)'
         }}
       />
-      {/* Large faint rotating ring / glow at top center */}
+      {/* Large faint rotating ring / glow at top center - responsive */}
       <motion.div
-        className="absolute left-1/2 -translate-x-1/2"
+        className="absolute left-1/2 -translate-x-1/2 w-[min(520px,90vw)] h-[min(520px,90vw)]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.08, rotate: [0, 360, 0] }}
         transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
         style={{ filter: 'blur(18px)' }}
       >
-        <Circle size={520} strokeWidth={2} className="text-pink-700" />
+        <Circle className="w-full h-full text-pink-700" strokeWidth={2} />
       </motion.div>
 
-      {/* Soft radial blob behind center-left */}
+      {/* Soft radial blob behind center-left - responsive */}
       <motion.div
-        className="absolute left-1/3 top-28 rounded-full"
+        className="absolute left-1/3 top-20 sm:top-28 rounded-full w-[min(420px,80vw)] h-[min(420px,80vw)]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.06, scale: [1, 1.06, 1] }}
         transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ width: 420, height: 420, background: 'radial-gradient(circle at 30% 30%, rgba(236,72,153,0.16), rgba(239,68,68,0.03))', filter: 'blur(28px)' }}
+        style={{ background: 'radial-gradient(circle at 30% 30%, rgba(236,72,153,0.16), rgba(239,68,68,0.03))', filter: 'blur(28px)' }}
       />
 
-      {/* Large triangle lower-left */}
+      {/* Large triangle lower-left - responsive */}
       <motion.div
-        className="absolute left-8 bottom-28"
+        className="absolute left-4 sm:left-8 bottom-20 sm:bottom-28 w-12 h-12 sm:w-14 sm:h-14 md:w-[220px] md:h-[220px] [&>svg]:w-full [&>svg]:h-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.06, rotate: [-6, 6, -6] }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
@@ -54,9 +54,9 @@ export default function ShapesBackground() {
         <Triangle size={220} strokeWidth={2} className="text-pink-600" />
       </motion.div>
 
-      {/* Medium square right */}
+      {/* Medium square right - responsive */}
       <motion.div
-        className="absolute right-6 top-1/3"
+        className="absolute right-4 sm:right-6 top-1/3 w-10 h-10 sm:w-12 sm:h-12 md:w-[200px] md:h-[200px] [&>svg]:w-full [&>svg]:h-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.06, rotate: [0, 12, 0] }}
         transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
@@ -64,10 +64,9 @@ export default function ShapesBackground() {
         <Square size={200} strokeWidth={2} className="text-pink-600" />
       </motion.div>
 
-      {/* Cluster of small glowing dots near center */}
-      {/* Center radar-like SVG: concentric rings + orbiting dots */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <svg className="w-[680px] h-[680px]" viewBox="0 0 680 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Center radar-like SVG: concentric rings + orbiting dots - responsive */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(680px,95vw)] h-[min(680px,95vw)] max-w-full max-h-full">
+        <svg className="w-full h-full" viewBox="0 0 680 680" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
           <defs>
             <radialGradient id="rg" cx="50%" cy="40%">
               <stop offset="0%" stopColor="#ff7ab6" stopOpacity="0.18" />
@@ -139,11 +138,12 @@ export default function ShapesBackground() {
         </svg>
       </div>
 
-      {/* Expanded decorative shapes down left and right edges */}
-      <div className="absolute left-4 top-6 flex flex-col gap-10 pointer-events-none">
+      {/* Decorative shapes left/right - responsive sizes */}
+      <div className="absolute left-2 sm:left-4 top-6 flex flex-col gap-4 sm:gap-10 pointer-events-none">
         {[56, 48, 64, 42, 52].map((size, i) => (
           <motion.div
             key={`left-${i}`}
+            className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 [&>svg]:w-full [&>svg]:h-full"
             animate={{ y: [0, i % 2 === 0 ? 8 : -8, 0], rotate: i % 3 === 0 ? [0, 6, 0] : [0, 0] }}
             transition={{ duration: 6 + (i * 0.6), repeat: Infinity, ease: 'easeInOut' }}
             style={{ opacity: 0.12 }}
@@ -159,10 +159,11 @@ export default function ShapesBackground() {
         ))}
       </div>
 
-      <div className="absolute right-4 top-6 flex flex-col gap-10 pointer-events-none">
+      <div className="absolute right-2 sm:right-4 top-6 flex flex-col gap-4 sm:gap-10 pointer-events-none">
         {[50, 60, 44, 56, 40].map((size, i) => (
           <motion.div
             key={`right-${i}`}
+            className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 [&>svg]:w-full [&>svg]:h-full"
             animate={{ y: [0, i % 2 === 0 ? -8 : 8, 0], rotate: i % 2 === 0 ? [-6, 6, -6] : [0, 0] }}
             transition={{ duration: 5.5 + (i * 0.7), repeat: Infinity, ease: 'easeInOut' }}
             style={{ opacity: 0.11 }}
