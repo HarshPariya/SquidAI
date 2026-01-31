@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 /**
  * Next.js global error boundary. Replaces the root layout when an error occurs in it.
  * Must define its own <html> and <body>. Must be a Client Component.
@@ -13,7 +15,17 @@ export default function GlobalError({
 }) {
   return (
     <html lang="en">
-      <body style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 32 }}>
+      <body
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 32,
+          margin: 0,
+          fontFamily: "system-ui, sans-serif",
+        }}
+      >
         <div>
           <h1 style={{ fontSize: 20, fontWeight: 700, margin: 0 }}>Something went wrong</h1>
           <p style={{ marginTop: 8, color: "#6b7280" }}>An unexpected error occurred.</p>
