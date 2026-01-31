@@ -170,7 +170,7 @@ The app uses `next build --webpack` to avoid Turbopack symlink issues (e.g. on W
 | Variable | Value | Required |
 |----------|--------|----------|
 | **NEXTAUTH_SECRET** | Run `openssl rand -base64 32` in a terminal, copy the output, and paste it here. **Without this you will see `NO_SECRET` errors in logs and auth will fail.** | **Yes** |
-| **NEXTAUTH_URL** | Your Render URL, e.g. `https://squidai.onrender.com` (no trailing slash) | **Yes** |
+| **NEXTAUTH_URL** | Your Render URL, e.g. `https://squidai.onrender.com` (no trailing slash). If unset or localhost, the app uses Render’s **RENDER_EXTERNAL_URL** automatically. | **Yes** (or auto on Render) |
 | **AUTH_TRUST_HOST** | `true` | **Yes** (for Google sign-in behind proxy) |
 | **GOOGLE_CLIENT_ID** | From Google Cloud Console | If using Google sign-in |
 | **GOOGLE_CLIENT_SECRET** | From Google Cloud Console | If using Google sign-in |

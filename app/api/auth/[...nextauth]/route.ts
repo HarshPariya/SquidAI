@@ -1,14 +1,20 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-// Warn if production is still using localhost (causes "This site can't be reached" after Google sign-in)
+// On Render, use RENDER_EXTERNAL_URL when NEXTAUTH_URL is missing or still localhost (fixes redirect after Google sign-in)
 const authUrl = process.env.NEXTAUTH_URL ?? "";
-if (process.env.NODE_ENV === "production" && (authUrl.includes("localhost") || !authUrl)) {
-  console.warn(
-    "[NextAuth] NEXTAUTH_URL must be your production URL (e.g. https://squidai.onrender.com), not localhost. " +
-      "Set it in Render → Environment, then redeploy. Current NEXTAUTH_URL:",
-    authUrl || "(empty)"
-  );
+if (process.env.NODE_ENV === "production") {
+  const renderUrl = process.env.RENDER_EXTERNAL_URL;
+  if (renderUrl && (!authUrl || authUrl.includes("localhost"))) {
+    process.env.NEXTAUTH_URL = renderUrl.startsWith("http") ? renderUrl : `https://${renderUrl}`;
+  }
+  if (!process.env.NEXTAUTH_URL || process.env.NEXTAUTH_URL.includes("localhost")) {
+    console.warn(
+      "[NextAuth] NEXTAUTH_URL must be your production URL (e.g. https://squidai.onrender.com). " +
+        "Set it in Render → Environment, or it will use RENDER_EXTERNAL_URL. Current:",
+      process.env.NEXTAUTH_URL || "(empty)"
+    );
+  }
 }
 
 const handler = NextAuth({
