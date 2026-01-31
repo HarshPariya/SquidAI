@@ -166,7 +166,13 @@ The app uses `next build --webpack` to avoid Turbopack symlink issues (e.g. on W
 - **Environment:** In the Render dashboard → **Environment**, add the same variables as in `.env.local`. Do **not** set `NODE_ENV=development` — leave it unset or set `NODE_ENV=production` so the build uses production mode.
 - **NEXTAUTH_URL:** Set to your Render URL after first deploy (e.g. `https://your-service-name.onrender.com`).
 - **AUTH_TRUST_HOST:** Set to `true` on Render so NextAuth trusts the proxy (fixes redirects after Google sign-in). Add it in Render → Environment.
-- **Google Auth on Render:** In [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials → your OAuth 2.0 Client → **Authorized redirect URIs**, add: `https://YOUR-RENDER-URL.onrender.com/api/auth/callback/google` (use your actual Render URL). Without this, Google sign-in will fail after deployment.
+- **Google Auth on Render:** In [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials → your OAuth 2.0 Client → **Authorized redirect URIs**, add: `https://YOUR-RENDER-URL.onrender.com/api/auth/callback/google` (e.g. `https://squidai.onrender.com/api/auth/callback/google`). Without this, Google sign-in will fail after deployment.
+
+**If you see "Server error" or "There is a problem with the server configuration" at `/api/auth/error`:**
+1. In Render → Environment, add **NEXTAUTH_SECRET** (e.g. run `openssl rand -base64 32` locally and paste the value).
+2. Set **NEXTAUTH_URL** to your exact Render URL: `https://squidai.onrender.com` (no trailing slash).
+3. Set **AUTH_TRUST_HOST** = `true`.
+4. Add the callback URL in Google Cloud Console (see above), then redeploy.
 
 ---
 
