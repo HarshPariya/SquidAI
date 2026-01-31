@@ -145,20 +145,26 @@ SquidAI/
 
 ## 🌐 Deployment
 
-1. **Set environment variables** in your host (Vercel, Netlify, etc.):  
-   `GEMINI_API_KEY`, `MONGODB_URI` (if used), `NEXTAUTH_SECRET`, `NEXTAUTH_URL` (e.g. `https://yourdomain.com`), and Google OAuth vars if you use sign-in.
+1. **Set environment variables** in your host (Vercel, Netlify, Render, etc.):  
+   `GEMINI_API_KEY`, `GEMINI_MODEL` (optional, e.g. `gemini-2.5-flash`), `MONGODB_URI` (if used), `NEXTAUTH_SECRET`, `NEXTAUTH_URL` (your production URL), and `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` if you use Google sign-in.
 
-2. **Build and start:**
+2. **Build and start (production):**
    ```bash
    npm run build
    npm start
    ```
+   Use **`npm start`** in production (not `npm run dev`).
 
 3. **NextAuth:** Add your production URL to Google OAuth redirect URIs (e.g. `https://yourdomain.com/api/auth/callback/google`).
 
 The app uses `next build --webpack` to avoid Turbopack symlink issues (e.g. on Windows) with the MongoDB package.
 
-**Render:** If you see a "non-standard NODE_ENV" warning during build, set the build environment variable `NODE_ENV=production` in your Render service settings.
+### Deploy on Render.com
+
+- **Build Command:** `npm install; npm run build`
+- **Start Command:** `npm start` (do **not** use `npm run dev`)
+- **Environment:** In the Render dashboard → **Environment**, add the same variables as in `.env.local`. Do **not** set `NODE_ENV=development` — leave it unset or set `NODE_ENV=production` so the build uses production mode.
+- **NEXTAUTH_URL:** Set to your Render URL after first deploy (e.g. `https://your-service-name.onrender.com`).
 
 ---
 
