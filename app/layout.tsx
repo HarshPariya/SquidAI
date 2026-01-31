@@ -1,5 +1,6 @@
 
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import { Geist, Geist_Mono, Orbitron, Rajdhani } from "next/font/google";
 import "./globals.css";
 import { DynamicProviders } from "@/components/auth/dynamic-providers";
@@ -43,8 +44,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} ${rajdhani.variable} antialiased bg-background text-foreground min-h-screen`}
       >
         <DynamicProviders>
-          <ShapesBackground />
-          {children}
+          <ShapesBackground key="shapes-bg" />
+          <Fragment key="content">{children}</Fragment>
         </DynamicProviders>
       </body>
     </html>

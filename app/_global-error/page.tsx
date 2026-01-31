@@ -1,8 +1,8 @@
-export const dynamic = "force-static";
+"use client";
 
-export default function GlobalError() {
+export default function GlobalErrorPage() {
   return (
-    <html>
+    <html lang="en">
       <body style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 32 }}>
         <div>
           <h1 style={{ fontSize: 20, fontWeight: 700, margin: 0 }}>Something went wrong</h1>
