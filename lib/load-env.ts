@@ -1,6 +1,10 @@
 // lib/load-env.ts
 import dotenv from "dotenv";
-dotenv.config({ path: ".env.local" });
+
+// Only load .env.local in development, not in production (Render, Vercel, etc)
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config({ path: ".env.local" });
+}
 
 if (process.env.NODE_ENV !== "production") {
   console.log("🔍 ENV Loaded Keys:", Object.keys(process.env).filter(k => k.includes("GEMINI")));

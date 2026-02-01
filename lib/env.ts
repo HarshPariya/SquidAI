@@ -2,9 +2,12 @@
 import dotenv from "dotenv";
 import path from "path";
 
-// Load .env.local from project root (reliable when running from different cwd)
-const envPath = path.join(process.cwd(), ".env.local");
-dotenv.config({ path: envPath });
+// Only load .env.local in development
+// In production (Render, Vercel, etc), use platform environment variables
+if (process.env.NODE_ENV !== "production") {
+  const envPath = path.join(process.cwd(), ".env.local");
+  dotenv.config({ path: envPath });
+}
 
 export const ENV = {
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || "",
