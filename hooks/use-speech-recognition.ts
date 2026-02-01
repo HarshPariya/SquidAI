@@ -25,58 +25,104 @@ export function useSpeechRecognition() {
     }
 
     setIsSupported(true);
-    const recognition = new SpeechRecognitionAPI();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.lang = "en-US";
+    
+    const createRecognition = () => {
+      const recognition = new SpeechRecognitionAPI();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = "en-US";
 
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        const result = event.results[i];
-        const text = result[0].transcript;
-        if (result.isFinal) {
-          finalizedRef.current += (finalizedRef.current ? " " : "") + text;
+      recognition.onresult = (event: SpeechRecognitionEvent) => {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i];
+          const text = result[0].transcript;
+          if (result.isFinal) {
+            finalizedRef.current += (finalizedRef.current ? " " : "") + text;
+          }
         }
-      }
-      const interims = [...event.results].slice(event.resultIndex).filter((r) => !r.isFinal);
-      const interimText = interims.length > 0 ? interims[interims.length - 1][0].transcript : "";
-      setTranscript(finalizedRef.current + (interimText ? " " + interimText : ""));
-    };
+        const interims = [...event.results].slice(event.resultIndex).filter((r) => !r.isFinal);
+        const interimText = interims.length > 0 ? interims[interims.length - 1][0].transcript : "";
+        setTranscript(finalizedRef.current + (interimText ? " " + interimText : ""));
+      };
 
-    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-      if (event.error === "not-allowed") {
-        setError("Microphone access denied");
-        try {
-          recognitionRef.current?.stop();
-        } catch {
-          // ignore
+      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+        if (event.error === "not-allowed") {
+          setError("Microphone access denied");
+          try {
+            recognition.stop();
+          } catch {
+            // ignore
+          }
+          setIsListening(false);
+        } else if (event.error === "no-speech") {
+          // User stopped without speaking - not a critical error
+        } else {
+          setError(event.error);
         }
+      };
+
+      recognition.onend = () => {
         setIsListening(false);
-      } else if (event.error === "no-speech") {
-        // User stopped without speaking - not a critical error
-      } else {
-        setError(event.error);
-      }
+      };
+
+      return recognition;
     };
 
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
-    recognitionRef.current = recognition;
+    recognitionRef.current = createRecognition();
     return () => {
-      recognition.abort();
+      recognitionRef.current?.abort();
       recognitionRef.current = null;
     };
   }, []);
 
   const startListening = useCallback(() => {
-    if (!recognitionRef.current || !isSupported) return;
+    if (!isSupported) return;
     setError(null);
     setTranscript("");
     finalizedRef.current = "";
     try {
-      recognitionRef.current.start();
+      // Create a fresh recognition instance since Web Speech API cannot restart after ending
+      const SpeechRecognitionAPI =
+        (window as Window & { SpeechRecognition?: typeof SpeechRecognition }).SpeechRecognition ||
+        (window as Window & { webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition;
+
+      if (!SpeechRecognitionAPI) return;
+
+      const recognition = new SpeechRecognitionAPI();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = "en-US";
+
+      recognition.onresult = (event: SpeechRecognitionEvent) => {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i];
+          const text = result[0].transcript;
+          if (result.isFinal) {
+            finalizedRef.current += (finalizedRef.current ? " " : "") + text;
+          }
+        }
+        const interims = [...event.results].slice(event.resultIndex).filter((r) => !r.isFinal);
+        const interimText = interims.length > 0 ? interims[interims.length - 1][0].transcript : "";
+        setTranscript(finalizedRef.current + (interimText ? " " + interimText : ""));
+      };
+
+      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+        if (event.error === "not-allowed") {
+          setError("Microphone access denied");
+          setIsListening(false);
+        } else if (event.error === "no-speech") {
+          // ignore
+        } else {
+          setError(event.error);
+        }
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
       setIsListening(true);
     } catch {
       setError("Could not start microphone");
