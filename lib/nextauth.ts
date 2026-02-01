@@ -19,23 +19,35 @@ function normalizeAuthUrl(url: string): string {
 }
 
 function getBaseUrl(): string {
-  let baseUrl = process.env.NEXTAUTH_URL || process.env.RENDER_EXTERNAL_URL || "http://localhost:3000";
+  // Always check environment at runtime, not build time
+  // This ensures Render env vars are used, not .env.local
+  if (typeof window !== "undefined") {
+    // Client side - use window.location
+    return window.location.origin;
+  }
+  
+  // Server side - check env vars in priority order
+  let baseUrl = process.env.NEXTAUTH_URL || process.env.RENDER_EXTERNAL_URL || process.env.VERCEL_URL;
+  
+  if (process.env.VERCEL_URL && !process.env.NEXTAUTH_URL) {
+    baseUrl = `https://${process.env.VERCEL_URL}`;
+  }
+  
+  if (!baseUrl) {
+    baseUrl = "http://localhost:3000";
+  }
+  
   baseUrl = normalizeAuthUrl(baseUrl);
   return baseUrl;
 }
-
-const baseUrl = getBaseUrl();
 
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-      authorization: {
-        params: {
-          redirect_uri: `${baseUrl}/api/auth/callback/google`,
-        },
-      },
+      // Let NextAuth compute the redirect_uri automatically based on NEXTAUTH_URL
+      // Don't override it - this was causing the localhost issue
     }),
   ],
   callbacks: {
