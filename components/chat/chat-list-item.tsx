@@ -47,7 +47,7 @@ export function ChatListItem({ session, isActive, onSelect, onDelete, onRename }
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className={cn(
-                "group relative flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg cursor-pointer transition-all mx-1 sm:mx-2 touch-manipulation min-h-[44px]",
+                "group relative flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg cursor-pointer transition-all mx-1 sm:mx-2 touch-manipulation min-h-11",
                 isActive
                     ? "bg-pink-950/40 border border-pink-500/20 shadow-[0_0_10px_rgba(236,72,153,0.08)]"
                     : "hover:bg-white/5 border border-transparent active:bg-white/10"
@@ -112,7 +112,7 @@ export function ChatListItem({ session, isActive, onSelect, onDelete, onRename }
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-7 w-7 sm:h-8 sm:w-8 opacity-0 sm:opacity-0 group-hover/item:opacity-100 sm:group-hover/item:opacity-100 text-zinc-400 hover:text-pink-500 hover:bg-pink-500/10 transition-all touch-manipulation flex-shrink-0"
+                                className="h-7 w-7 sm:h-8 sm:w-8 opacity-0 sm:opacity-0 group-hover/item:opacity-100 sm:group-hover/item:opacity-100 text-zinc-400 hover:text-pink-500 hover:bg-pink-500/10 transition-all touch-manipulation shrink-0"
                                 onClick={(e) => e.stopPropagation()}
                                 aria-label="More options"
                             >

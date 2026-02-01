@@ -43,7 +43,7 @@ const features = [
 
 export function Features() {
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 bg-gradient-to-b from-black via-red-950/10 to-black">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 bg-linear-to-b from-black via-red-950/10 to-black">
       <div className="container mx-auto">
         <motion.div
           className="text-center mb-8 sm:mb-12 md:mb-16"
@@ -52,7 +52,7 @@ export function Features() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-red-500 mb-3 sm:mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-red-500 mb-3 sm:mb-4">
             POWERFUL FEATURES
           </h2>
           <p className="text-gray-400 text-base sm:text-lg md:text-xl mb-6 sm:mb-8">
@@ -60,7 +60,7 @@ export function Features() {
           </p>
           <Link href="/chat">
             <motion.span
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-red-500 rounded-lg text-white font-medium"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-pink-500 to-red-500 rounded-lg text-white font-medium"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -83,16 +83,16 @@ export function Features() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="relative bg-gradient-to-br from-black to-red-950/20 border border-pink-500/30 rounded-xl p-4 sm:p-6 md:p-8 h-full overflow-hidden group-hover:border-pink-500 transition-colors">
+                <div className="relative bg-linear-to-br from-black to-red-950/20 border border-pink-500/30 rounded-xl p-4 sm:p-6 md:p-8 h-full overflow-hidden group-hover:border-pink-500 transition-colors">
                   {/* Animated background on hover */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-red-500/5 opacity-0 group-hover:opacity-100"
+                    className="absolute inset-0 bg-linear-to-br from-pink-500/5 to-red-500/5 opacity-0 group-hover:opacity-100"
                     transition={{ duration: 0.3 }}
                   />
                   
                   <div className="relative z-10">
                     <motion.div
-                      className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 sm:mb-6`}
+                      className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-lg bg-linear-to-br ${feature.color} flex items-center justify-center mb-4 sm:mb-6`}
                       animate={{
                         boxShadow: [
                           '0 0 20px rgba(236, 72, 153, 0.3)',

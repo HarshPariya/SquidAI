@@ -37,7 +37,7 @@ export function ChatDemo() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-red-500 mb-3 sm:mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-red-500 mb-3 sm:mb-4">
             SEE IT IN ACTION
           </h2>
           <p className="text-gray-400 text-base sm:text-lg md:text-xl">
@@ -46,7 +46,7 @@ export function ChatDemo() {
         </motion.div>
 
         <motion.div
-          className="bg-gradient-to-br from-black to-red-950/20 border-2 border-pink-500/50 rounded-2xl p-4 sm:p-6 md:p-8 glass"
+          className="bg-linear-to-br from-black to-red-950/20 border-2 border-pink-500/50 rounded-2xl p-4 sm:p-6 md:p-8 glass"
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -55,7 +55,7 @@ export function ChatDemo() {
           {/* Chat header */}
           <div className="flex items-center gap-2 sm:gap-3 pb-4 sm:pb-6 border-b border-pink-500/20 mb-4 sm:mb-6">
             <motion.div
-              className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center flex-shrink-0"
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center shrink-0"
               animate={{
                 boxShadow: [
                   '0 0 20px rgba(236, 72, 153, 0.5)',
@@ -91,10 +91,10 @@ export function ChatDemo() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: message.delay }}
               >
-                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 ${
                   message.role === 'user' 
-                    ? 'bg-gradient-to-br from-gray-700 to-gray-800' 
-                    : 'bg-gradient-to-br from-pink-500 to-red-500'
+                    ? 'bg-linear-to-br from-gray-700 to-gray-800' 
+                    : 'bg-linear-to-br from-pink-500 to-red-500'
                 }`}>
                   {message.role === 'user' ? (
                     <User size={16} className="sm:w-5 sm:h-5 text-white" />
@@ -106,8 +106,8 @@ export function ChatDemo() {
                 <motion.div
                   className={`max-w-[75%] sm:max-w-[80%] ${
                     message.role === 'user'
-                      ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700'
-                      : 'bg-gradient-to-br from-pink-500/10 to-red-500/10 border-pink-500/30'
+                      ? 'bg-linear-to-br from-gray-800 to-gray-900 border-gray-700'
+                      : 'bg-linear-to-br from-pink-500/10 to-red-500/10 border-pink-500/30'
                   } border rounded-2xl p-3 sm:p-4`}
                   whileHover={{ scale: 1.02 }}
                 >
@@ -129,10 +129,10 @@ export function ChatDemo() {
               animate={{ opacity: 1 }}
               transition={{ delay: 2.5 }}
             >
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-linear-to-br from-pink-500 to-red-500 flex items-center justify-center shrink-0">
                 <Bot size={20} className="text-white" />
               </div>
-              <div className="bg-gradient-to-br from-pink-500/10 to-red-500/10 border border-pink-500/30 rounded-2xl p-4">
+              <div className="bg-linear-to-br from-pink-500/10 to-red-500/10 border border-pink-500/30 rounded-2xl p-4">
                 <div className="flex gap-1">
                   {[0, 1, 2].map((i) => (
                     <motion.div
@@ -158,7 +158,7 @@ export function ChatDemo() {
           <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-pink-500/20">
             <Link href="/chat" className="block">
               <motion.div
-                className="flex items-center justify-center gap-2 w-full py-3 sm:py-4 bg-gradient-to-r from-pink-500/20 to-red-500/20 border border-pink-500/50 rounded-lg text-pink-400 hover:text-pink-300 hover:border-pink-500 transition-colors"
+                className="flex items-center justify-center gap-2 w-full py-3 sm:py-4 bg-linear-to-r from-pink-500/20 to-red-500/20 border border-pink-500/50 rounded-lg text-pink-400 hover:text-pink-300 hover:border-pink-500 transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

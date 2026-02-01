@@ -45,7 +45,7 @@ export default function ShapesBackground() {
 
       {/* Large triangle lower-left - responsive */}
       <motion.div
-        className="absolute left-4 sm:left-8 bottom-20 sm:bottom-28 w-12 h-12 sm:w-14 sm:h-14 md:w-[220px] md:h-[220px] [&>svg]:w-full [&>svg]:h-full"
+        className="absolute left-4 sm:left-8 bottom-20 sm:bottom-28 w-12 h-12 sm:w-14 sm:h-14 md:w-55 md:h-55 [&>svg]:w-full [&>svg]:h-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.06, rotate: [-6, 6, -6] }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
@@ -56,7 +56,7 @@ export default function ShapesBackground() {
 
       {/* Medium square right - responsive */}
       <motion.div
-        className="absolute right-4 sm:right-6 top-1/3 w-10 h-10 sm:w-12 sm:h-12 md:w-[200px] md:h-[200px] [&>svg]:w-full [&>svg]:h-full"
+        className="absolute right-4 sm:right-6 top-1/3 w-10 h-10 sm:w-12 sm:h-12 md:w-50 md:h-50 [&>svg]:w-full [&>svg]:h-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.06, rotate: [0, 12, 0] }}
         transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}

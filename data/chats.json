@@ -1178,64 +1178,6 @@
     "messages": []
   },
   {
-    "id": "c7162104-aff2-4e5b-8917-be4568f3ba09",
-    "title": "draw a BMW car",
-    "createdAt": 1769866929858,
-    "updatedAt": 1769867821614,
-    "messages": [
-      {
-        "role": "user",
-        "text": "make a image of ferrari",
-        "timestamp": "2026-01-31T13:49:21.847Z"
-      },
-      {
-        "role": "model",
-        "text": "Here's an image of a Ferrari for you:\n\n",
-        "timestamp": "2026-01-31T13:49:32.073Z"
-      },
-      {
-        "role": "user",
-        "text": "i cants  see image of ferrari",
-        "timestamp": "2026-01-31T13:50:27.566Z"
-      },
-      {
-        "role": "model",
-        "text": "Ah, you're right! My apologies. As an AI trained on text, I can **describe** an image to you, but I can't actually **display** or **show** you an image directly in our conversation here.\n\nWhen I said \"Here's an image of a Ferrari,\" I was intending to convey that I had *generated the thought* of an image of a Ferrari, or that if I were an image-generating AI, I would have produced one.\n\n**To see an image of a Ferrari, you would need to use a tool that can generate or display images, such as:**\n\n*   **A web search engine (like Google Images):** Just type \"Ferrari\" and you'll see many pictures.\n*   **An actual image generation AI:** Tools like Midjourney, DALL-E, Stable Diffusion, or others can create images based on your prompts.\n\nI'm sorry for the confusion! I can, however, describe a Ferrari to you, or tell you interesting facts about them if you like!",
-        "timestamp": "2026-01-31T13:50:30.026Z"
-      },
-      {
-        "role": "user",
-        "text": "tell me something about your owner",
-        "timestamp": "2026-01-31T13:52:02.896Z"
-      },
-      {
-        "role": "model",
-        "text": "I am a large language model, trained by Google. I don't have a personal \"owner\" in the way a person might own a pet or a car; rather, I am a product of their research and development.",
-        "timestamp": "2026-01-31T13:52:06.497Z"
-      },
-      {
-        "role": "user",
-        "text": "can u brief tell me about this picture",
-        "timestamp": "2026-01-31T13:52:41.544Z"
-      },
-      {
-        "role": "model",
-        "text": "This image is a cheerful selfie featuring a group of approximately **7-8 adults and one small child**, all smiling and looking towards the camera.\n\nHere's a brief summary:\n\n*   **Subjects:** A diverse group of people, appearing to be friends or family, posing for a photo.\n*   **Mood:** The expressions are universally happy and relaxed, suggesting a positive and enjoyable outing.\n*   **Setting:** They are outdoors, likely in a park, garden, or temple complex, characterized by lush greenery, trees, and a decorative building entrance with people visible in the background. A green fence and manicured bushes are also visible.\n*   **Composition:** The photo is taken from a close-up, selfie perspective, with the person on the far right holding the camera.",
-        "timestamp": "2026-01-31T13:52:49.875Z"
-      },
-      {
-        "role": "user",
-        "text": "tell me abt tis",
-        "timestamp": "2026-01-31T13:56:42.274Z"
-      },
-      {
-        "role": "model",
-        "text": "This image showcases a magnificent **white colonial-era building**, very likely a church or cathedral, under a clear, bright blue sky.\n\nHere's a brief summary:\n\n*   **Architecture:** The building is grand and predominantly white, featuring classical architectural elements, a prominent central facade, and a distinct reddish-brown tiled roof. A tall bell tower with arched windows is visible on the right side of the structure.\n*   **Setting:** It appears to be an open public space or plaza in front of the building, with a wide paved area and a circular raised garden bed.\n*   **Significance:** A large sign in the foreground clearly indicates **\"ARCHAEOLOGICAL SURVEY OF INDIA\"**, signifying that this is a protected historical monument or site.\n*   **Activity:** Numerous people, dressed in casual attire, are seen walking around the plaza and near the building, suggesting it's a popular tourist destination or a place of public gathering.\n*   **Vegetation:** Several tall, slender evergreen trees are strategically placed around the building and in the background, adding to the scenic beauty.\n*   **Atmosphere:** The clear blue sky and bright lighting suggest a sunny, pleasant day, ideal for visiting such a landmark.",
-        "timestamp": "2026-01-31T13:57:00.874Z"
-      }
-    ]
-  },
-  {
     "id": "e76fbcce-4dfc-41a7-a72c-d311f235167a",
     "title": "Hello, tell me something about...",
     "createdAt": 1769877896344,

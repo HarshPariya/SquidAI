@@ -182,7 +182,7 @@ export function Hero() {
               ease: "easeInOut"
             }}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-pink-500">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-pink-500 via-red-500 to-pink-500">
               SquidAI
             </h1>
           </motion.div>
@@ -211,12 +211,12 @@ export function Hero() {
           >
             <Link
               href="/chat"
-              className="px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base bg-gradient-to-r from-pink-500 to-red-500 rounded-lg text-white relative overflow-hidden group touch-manipulation min-h-[44px] inline-block"
+              className="px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base bg-linear-to-r from-pink-500 to-red-500 rounded-lg text-white relative overflow-hidden group touch-manipulation min-h-11 inline-block"
               aria-label="Start chatting with SquidAI"
             >
               <span className="relative z-10">Start Chatting</span>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-red-500 to-pink-500 opacity-0 group-hover:opacity-100"
+                className="absolute inset-0 bg-linear-to-r from-red-500 to-pink-500 opacity-0 group-hover:opacity-100"
                 transition={{ duration: 0.3 }}
               />
             </Link>

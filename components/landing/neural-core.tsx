@@ -85,7 +85,7 @@ export function NeuralCore() {
                 {[0, 90, 180, 270].map((angle) => (
                     <div
                         key={angle}
-                        className="absolute w-0.5 h-[175px] bg-gradient-to-b from-cyan-400/60 to-transparent"
+                        className="absolute w-0.5 h-[175px] bg-linear-to-b from-cyan-400/60 to-transparent"
                         style={{
                             top: '50%',
                             left: '50%',
@@ -135,7 +135,7 @@ export function NeuralCore() {
 
             {/* Central Core */}
             <motion.div
-                className="absolute w-[100px] h-[100px] rounded-full bg-gradient-to-br from-cyan-400 to-blue-600"
+                className="absolute w-[100px] h-[100px] rounded-full bg-linear-to-br from-cyan-400 to-blue-600"
                 style={{
                     boxShadow: '0 0 60px rgba(6, 182, 212, 0.8), 0 0 100px rgba(6, 182, 212, 0.4), inset 0 0 30px rgba(255, 255, 255, 0.3)',
                 }}
@@ -149,7 +149,7 @@ export function NeuralCore() {
                 }}
             >
                 {/* Core inner glow */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 to-transparent" />
+                <div className="absolute inset-0 rounded-full bg-linear-to-br from-white/40 to-transparent" />
             </motion.div>
 
             {/* Energy Particles */}
@@ -188,7 +188,7 @@ export function NeuralCore() {
             {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
                 <motion.div
                     key={`line-${angle}`}
-                    className="absolute w-[1px] h-[200px] bg-gradient-to-b from-cyan-400/0 via-cyan-400/30 to-cyan-400/0"
+                    className="absolute w-[1px] h-[200px] bg-linear-to-b from-cyan-400/0 via-cyan-400/30 to-cyan-400/0"
                     style={{
                         top: '50%',
                         left: '50%',

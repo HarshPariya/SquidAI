@@ -9,6 +9,7 @@ const getDbName = () => ENV.MONGODB_DB_NAME;
 const COLLECTION_SEARCHES = "user_searches";
 const COLLECTION_CHAT_MESSAGES = "chat_messages";
 const COLLECTION_USERS = "users";
+const COLLECTION_CHAT_SESSIONS = "chat_sessions";
 
 let cachedDb: Db | null = null;
 
@@ -112,5 +113,68 @@ export async function saveUser(doc: Omit<UserDoc, "createdAt" | "lastLoginAt">):
     );
   } catch (err) {
     console.error("[MongoDB] saveUser error:", err);
+  }
+}
+
+// Chat sessions stored per user (if userId provided)
+export async function getUserSessions(userId?: string): Promise<any[]> {
+  const db = await getMongoDb();
+  if (!db) return [];
+  try {
+    const collection = db.collection(COLLECTION_CHAT_SESSIONS);
+    if (userId) {
+      const sessions = await collection.find({ userId }).toArray();
+      // map to plain sessions array
+      return sessions.map(s => s.session);
+    }
+    // If no userId provided, return all sessions (not recommended)
+    const all = await collection.find({}).toArray();
+    return all.map(s => s.session);
+  } catch (err) {
+    console.error('[MongoDB] getUserSessions error:', err);
+    return [];
+  }
+}
+
+export async function upsertUserSession(userId: string | undefined, session: any): Promise<void> {
+  const db = await getMongoDb();
+  if (!db) return;
+  try {
+    const collection = db.collection(COLLECTION_CHAT_SESSIONS);
+    if (!userId) return;
+    await collection.updateOne(
+      { userId, 'session.id': session.id },
+      { $set: { userId, session } },
+      { upsert: true }
+    );
+  } catch (err) {
+    console.error('[MongoDB] upsertUserSession error:', err);
+  }
+}
+
+export async function addMessageToUserSession(userId: string | undefined, sessionId: string, message: any): Promise<void> {
+  const db = await getMongoDb();
+  if (!db) return;
+  try {
+    const collection = db.collection(COLLECTION_CHAT_SESSIONS);
+    if (!userId) return;
+    await collection.updateOne(
+      { userId, 'session.id': sessionId },
+      { $push: { 'session.messages': message }, $set: { 'session.updatedAt': Date.now() } }
+    );
+  } catch (err) {
+    console.error('[MongoDB] addMessageToUserSession error:', err);
+  }
+}
+
+export async function deleteUserSession(userId: string | undefined, sessionId: string): Promise<void> {
+  const db = await getMongoDb();
+  if (!db) return;
+  try {
+    const collection = db.collection(COLLECTION_CHAT_SESSIONS);
+    if (!userId) return;
+    await collection.deleteOne({ userId, 'session.id': sessionId });
+  } catch (err) {
+    console.error('[MongoDB] deleteUserSession error:', err);
   }
 }

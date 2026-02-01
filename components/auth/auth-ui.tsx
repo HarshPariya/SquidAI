@@ -47,7 +47,7 @@ export function AuthUI() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <HoloCard className="p-8 bg-gradient-to-br from-black/90 to-red-950/10 backdrop-blur-xl border-pink-500/20">
+        <HoloCard className="p-8 bg-linear-to-br from-black/90 to-red-950/10 backdrop-blur-xl border-pink-500/20">
           {/* Header */}
           <div className="text-center mb-8">
             <motion.div
@@ -68,11 +68,37 @@ export function AuthUI() {
                   ease: "easeInOut"
                 }
               }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-pink-500/20 to-red-500/20 border border-pink-500/30 mb-4"
+              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-linear-to-br from-pink-500/20 to-red-500/20 border border-pink-500/30 mb-4"
             >
-              <Sparkles className="w-8 h-8 text-pink-400" />
+              {/* SquidAI Logo - Squid Icon */}
+              <svg
+                viewBox="0 0 100 100"
+                className="w-8 h-8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* Squid head/body */}
+                <circle cx="50" cy="35" r="20" fill="url(#squidGradient)" />
+                {/* Left eye */}
+                <circle cx="42" cy="32" r="3" fill="#fff" />
+                <circle cx="42" cy="32" r="1.5" fill="#000" />
+                {/* Right eye */}
+                <circle cx="58" cy="32" r="3" fill="#fff" />
+                <circle cx="58" cy="32" r="1.5" fill="#000" />
+                {/* Tentacles */}
+                <path d="M 35 50 Q 30 60 32 75" stroke="url(#squidGradient)" strokeWidth="3" strokeLinecap="round" fill="none" />
+                <path d="M 50 55 Q 50 65 48 80" stroke="url(#squidGradient)" strokeWidth="3" strokeLinecap="round" fill="none" />
+                <path d="M 65 50 Q 70 60 68 75" stroke="url(#squidGradient)" strokeWidth="3" strokeLinecap="round" fill="none" />
+                {/* Gradient definition */}
+                <defs>
+                  <linearGradient id="squidGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#ec4899', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#ef4444', stopOpacity: 1 }} />
+                  </linearGradient>
+                </defs>
+              </svg>
             </motion.div>
-            <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-red-500 mb-2 tracking-tight">
+            <h1 className="text-3xl font-black text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-red-500 mb-2 tracking-tight">
               SquidAI
             </h1>
             <p className="text-gray-400 text-sm">
@@ -81,7 +107,7 @@ export function AuthUI() {
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-2 mb-6 p-1 bg-gradient-to-r from-pink-500/5 to-red-500/5 rounded-lg border border-pink-500/20">
+          <div className="flex gap-2 mb-6 p-1 bg-linear-to-r from-pink-500/5 to-red-500/5 rounded-lg border border-pink-500/20">
             <button
               onClick={() => {
                 setMode("login");
@@ -90,7 +116,7 @@ export function AuthUI() {
               className={cn(
                 "flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all",
                 mode === "login"
-                  ? "bg-gradient-to-r from-pink-500/20 to-red-500/20 text-pink-300 border border-pink-500/30"
+                  ? "bg-linear-to-r from-pink-500/20 to-red-500/20 text-pink-300 border border-pink-500/30"
                   : "text-gray-400 hover:text-gray-200"
               )}
             >
@@ -105,7 +131,7 @@ export function AuthUI() {
               className={cn(
                 "flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all",
                 mode === "register"
-                  ? "bg-gradient-to-r from-pink-500/20 to-red-500/20 text-pink-300 border border-pink-500/30"
+                  ? "bg-linear-to-r from-pink-500/20 to-red-500/20 text-pink-300 border border-pink-500/30"
                   : "text-gray-400 hover:text-gray-200"
               )}
             >
@@ -135,7 +161,7 @@ export function AuthUI() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Enter your name"
-                      className="pl-10 bg-gradient-to-r from-pink-500/5 to-red-500/5 border-pink-500/30 text-gray-100 placeholder:text-gray-500 focus:border-pink-500 focus:outline-none transition-colors"
+                      className="pl-10 bg-linear-to-r from-pink-500/5 to-red-500/5 border-pink-500/30 text-gray-100 placeholder:text-gray-500 focus:border-pink-500 focus:outline-none transition-colors"
                       required={mode === "register"}
                     />
                   </div>
@@ -154,7 +180,7 @@ export function AuthUI() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="pl-10 bg-gradient-to-r from-pink-500/5 to-red-500/5 border-pink-500/30 text-gray-100 placeholder:text-gray-500 focus:border-pink-500 focus:outline-none transition-colors"
+                  className="pl-10 bg-linear-to-r from-pink-500/5 to-red-500/5 border-pink-500/30 text-gray-100 placeholder:text-gray-500 focus:border-pink-500 focus:outline-none transition-colors"
                   required
                 />
               </div>
@@ -171,7 +197,7 @@ export function AuthUI() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="pl-10 bg-gradient-to-r from-pink-500/5 to-red-500/5 border-pink-500/30 text-gray-100 placeholder:text-gray-500 focus:border-pink-500 focus:outline-none transition-colors"
+                  className="pl-10 bg-linear-to-r from-pink-500/5 to-red-500/5 border-pink-500/30 text-gray-100 placeholder:text-gray-500 focus:border-pink-500 focus:outline-none transition-colors"
                   required
                 />
               </div>
@@ -190,7 +216,7 @@ export function AuthUI() {
             <motion.button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white border-none h-11 font-medium rounded-lg flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-linear-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white border-none h-11 font-medium rounded-lg flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={{ scale: isLoading ? 1 : 1.02 }}
               whileTap={{ scale: isLoading ? 1 : 0.98 }}
             >
@@ -248,7 +274,7 @@ export function AuthUI() {
           <motion.button
             type="button"
             onClick={handleContinueAsGuest}
-            className="w-full bg-gradient-to-r from-pink-500/10 to-red-500/10 hover:from-pink-500/20 hover:to-red-500/20 text-gray-300 border border-pink-500/30 h-11 font-medium rounded-lg flex items-center justify-center gap-2 transition-all"
+            className="w-full bg-linear-to-r from-pink-500/10 to-red-500/10 hover:from-pink-500/20 hover:to-red-500/20 text-gray-300 border border-pink-500/30 h-11 font-medium rounded-lg flex items-center justify-center gap-2 transition-all"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >

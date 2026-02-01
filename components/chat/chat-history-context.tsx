@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { useAuth } from '@/components/auth/auth-context';
 import { ChatSession, ChatMessage, ChatStorageMode, ChatHistoryContextType } from "@/types/chat";
 
 const ChatHistoryContext = createContext<ChatHistoryContextType | undefined>(undefined);
@@ -10,12 +11,13 @@ export function ChatHistoryProvider({ children }: { children: React.ReactNode })
     const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
     const [storageMode, setStorageMode] = useState<ChatStorageMode>("demo");
     const [isLoading, setIsLoading] = useState(true);
+    const { user } = useAuth();
 
     // Initialize: Check if API is available and load sessions
     useEffect(() => {
         const init = async () => {
             try {
-                const res = await fetch("/api/sessions");
+                const res = await fetch('/api/sessions');
                 if (res.ok) {
                     setStorageMode("local");
                     const data = await res.json();

@@ -24,7 +24,7 @@ export default function Page() {
 
         <div className="mt-8">
           <Link href="/">
-            <button className="px-6 py-3 bg-gradient-to-r from-pink-500 to-red-500 rounded-md text-white">Open AI</button>
+            <button className="px-6 py-3 bg-linear-to-r from-pink-500 to-red-500 rounded-md text-white">Open AI</button>
           </Link>
         </div>
       </section>

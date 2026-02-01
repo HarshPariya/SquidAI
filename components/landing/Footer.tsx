@@ -37,7 +37,7 @@ export function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-2">
             <motion.h3
-              className="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-red-500 mb-3 sm:mb-4"
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-red-500 mb-3 sm:mb-4"
               animate={{
                 textShadow: [
                   "0 0 20px rgba(236, 72, 153, 0.5)",
@@ -67,7 +67,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-pink-500/20 to-red-500/20 border border-pink-500/30 rounded-lg flex items-center justify-center text-pink-500 hover:border-pink-500 transition-colors"
+                    className="w-8 h-8 sm:w-10 sm:h-10 bg-linear-to-br from-pink-500/20 to-red-500/20 border border-pink-500/30 rounded-lg flex items-center justify-center text-pink-500 hover:border-pink-500 transition-colors"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -129,7 +129,7 @@ export function Footer() {
         <div className="pt-6 sm:pt-8 border-t border-pink-500/20 mb-6 sm:mb-8">
           <p className="text-gray-300 text-sm sm:text-base font-medium mb-2">
             This is made by{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-red-500 font-semibold">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-red-500 font-semibold">
               Harsh Pariya
             </span>
           </p>

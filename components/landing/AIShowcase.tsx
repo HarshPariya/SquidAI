@@ -32,7 +32,7 @@ export function AIShowcase() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-red-500 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-red-500 mb-4">
             CONVERSATION PREVIEW
           </h2>
           <p className="text-gray-400 text-base sm:text-lg md:text-xl">
@@ -43,7 +43,7 @@ export function AIShowcase() {
         <div className="max-w-5xl mx-auto">
           {/* Main showcase - animation only */}
           <motion.div
-            className="relative bg-gradient-to-br from-black to-red-950/20 border-2 border-pink-500/50 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12"
+            className="relative bg-linear-to-br from-black to-red-950/20 border-2 border-pink-500/50 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -53,7 +53,7 @@ export function AIShowcase() {
             <div className="relative min-h-[280px] sm:min-h-[320px] md:h-[400px] flex items-center justify-center aspect-square max-h-[400px] md:max-h-none md:aspect-auto">
               {/* Center node */}
               <motion.div
-                className="absolute w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center z-20"
+                className="absolute w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-linear-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center z-20"
                 animate={{
                   boxShadow: isPlaying ? [
                     '0 0 30px rgba(236, 72, 153, 0.6)',
@@ -80,7 +80,7 @@ export function AIShowcase() {
                 return (
                   <motion.div
                     key={index}
-                    className="absolute w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-pink-500/50 to-red-500/50 rounded-full border-2 border-pink-500"
+                    className="absolute w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-linear-to-br from-pink-500/50 to-red-500/50 rounded-full border-2 border-pink-500"
                     style={{
                       left: '50%',
                       top: '50%',
@@ -169,7 +169,7 @@ export function AIShowcase() {
             {/* Controls - responsive, wrap on small screens */}
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
               <motion.button
-                className="px-4 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-pink-500 to-red-500 rounded-lg text-white flex items-center gap-2 text-sm sm:text-base"
+                className="px-4 py-2.5 sm:px-6 sm:py-3 bg-linear-to-r from-pink-500 to-red-500 rounded-lg text-white flex items-center gap-2 text-sm sm:text-base"
                 onClick={() => setIsPlaying(!isPlaying)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -202,7 +202,7 @@ export function AIShowcase() {
 
               <Link href="/chat">
                 <motion.span
-                  className="inline-flex px-4 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-pink-500 to-red-500 rounded-lg text-white items-center gap-2 cursor-pointer text-sm sm:text-base"
+                  className="inline-flex px-4 py-2.5 sm:px-6 sm:py-3 bg-linear-to-r from-pink-500 to-red-500 rounded-lg text-white items-center gap-2 cursor-pointer text-sm sm:text-base"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -238,7 +238,7 @@ export function AIShowcase() {
           {/* Additional info cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             <motion.div
-              className="bg-gradient-to-br from-pink-500/10 to-transparent border border-pink-500/30 rounded-xl p-6"
+              className="bg-linear-to-br from-pink-500/10 to-transparent border border-pink-500/30 rounded-xl p-6"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -251,7 +251,7 @@ export function AIShowcase() {
             </motion.div>
 
             <motion.div
-              className="bg-gradient-to-br from-red-500/10 to-transparent border border-red-500/30 rounded-xl p-6"
+              className="bg-linear-to-br from-red-500/10 to-transparent border border-red-500/30 rounded-xl p-6"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}

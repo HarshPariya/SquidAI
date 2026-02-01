@@ -39,7 +39,7 @@ export function CapabilityCard({ icon: Icon, title, description, index }: Capabi
             >
                 {/* Hover glow effect */}
                 <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute inset-0 bg-linear-to-br from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     style={{
                         boxShadow: 'inset 0 0 40px rgba(6, 182, 212, 0.2)',
                     }}
@@ -98,7 +98,7 @@ export function CapabilityCard({ icon: Icon, title, description, index }: Capabi
 
                 {/* Scan line effect */}
                 <motion.div
-                    className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100"
+                    className="absolute inset-x-0 h-[2px] bg-linear-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100"
                     animate={{
                         y: [0, 200],
                     }}

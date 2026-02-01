@@ -388,7 +388,6 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           query: userMessageText,
-          ...(user && { userId: user.id, userEmail: user.email }),
           ...(currentSessionId && { sessionId: currentSessionId }),
         }),
       }).catch(() => {});
@@ -512,7 +511,6 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             sessionId: currentSessionId,
-            ...(user && { userId: user.id, userEmail: user.email }),
             role,
             content,
           }),
@@ -628,7 +626,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
       <AnimatePresence>
         {showSidebar && (
           <motion.aside
-            className="w-64 sm:w-64 md:w-72 bg-gradient-to-b from-black to-red-950/10 border-r border-pink-500/20 flex flex-col fixed sm:relative inset-y-0 left-0 z-50 sm:z-auto"
+            className="w-64 sm:w-64 md:w-72 bg-linear-to-b from-black to-red-950/10 border-r border-pink-500/20 flex flex-col fixed sm:relative inset-y-0 left-0 z-50 sm:z-auto"
             initial={{ x: '-100%' }}
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
@@ -637,11 +635,11 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
             {/* Logo */}
             <div className="p-4 sm:p-6 border-b border-pink-500/20">
               <div className="flex items-center gap-3 sm:gap-4">
-                <motion.div className="relative w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0" animate={{ boxShadow: ['0 0 18px rgba(244,63,94,0.45)', '0 0 36px rgba(244,63,94,0.6)', '0 0 18px rgba(244,63,94,0.45)'] }} transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}>
+                <motion.div className="relative w-12 h-12 sm:w-16 sm:h-16 shrink-0" animate={{ boxShadow: ['0 0 18px rgba(244,63,94,0.45)', '0 0 36px rgba(244,63,94,0.6)', '0 0 18px rgba(244,63,94,0.45)'] }} transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}>
                   <SquidAICore status="idle" className="w-12 h-12 sm:w-16 sm:h-16" />
                 </motion.div>
                 <div className="min-w-0">
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-red-500 truncate">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-black text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-red-500 truncate">
                     SquidAI
                   </h2>
                   <p className="text-[10px] sm:text-xs text-gray-400 truncate">SquidAI Nexus</p>
@@ -675,7 +673,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
                       transition={{ delay: index * 0.08 }}
                     >
                       <span className="text-gray-300 truncate pr-2">{module.name}</span>
-                      <div className="flex items-center flex-shrink-0">
+                      <div className="flex items-center shrink-0">
                         <motion.div
                           className="relative w-3 h-3 sm:w-4 sm:h-4 flex items-center justify-center"
                           animate={module.active ? { scale: [1, 1.06, 1] } : {}}
@@ -699,7 +697,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
             <div className="p-3 sm:p-4 border-t border-pink-500/20 space-y-2">
               <div className="grid grid-cols-2 gap-2">
                 <motion.button
-                  className="p-2 sm:p-3 bg-gradient-to-br from-pink-500/8 to-red-500/8 border border-pink-500/30 rounded-lg flex flex-col items-center gap-1 hover:border-pink-500 transition-colors touch-manipulation"
+                  className="p-2 sm:p-3 bg-linear-to-br from-pink-500/8 to-red-500/8 border border-pink-500/30 rounded-lg flex flex-col items-center gap-1 hover:border-pink-500 transition-colors touch-manipulation"
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                 >
@@ -707,7 +705,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
                   <span className="text-[10px] sm:text-xs md:text-sm text-pink-300 text-center leading-tight">Code</span>
                 </motion.button>
                 <motion.button
-                  className="p-2 sm:p-3 bg-gradient-to-br from-pink-500/8 to-red-500/8 border border-pink-500/30 rounded-lg flex flex-col items-center gap-1 hover:border-pink-500 transition-colors touch-manipulation"
+                  className="p-2 sm:p-3 bg-linear-to-br from-pink-500/8 to-red-500/8 border border-pink-500/30 rounded-lg flex flex-col items-center gap-1 hover:border-pink-500 transition-colors touch-manipulation"
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                 >
@@ -734,11 +732,11 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
-        <header className="h-14 sm:h-16 border-b border-pink-500/20 flex items-center justify-between px-3 sm:px-4 md:px-6 bg-black/50 backdrop-blur-sm flex-shrink-0">
+        <header className="h-14 sm:h-16 border-b border-pink-500/20 flex items-center justify-between px-3 sm:px-4 md:px-6 bg-black/50 backdrop-blur-sm shrink-0">
           <div className="flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0 flex-1">
             <motion.button
               onClick={() => setShowSidebar(!showSidebar)}
-              className="text-pink-500 hover:text-pink-400 flex-shrink-0 p-1.5 touch-manipulation"
+              className="text-pink-500 hover:text-pink-400 shrink-0 p-1.5 touch-manipulation"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               data-sidebar-toggle
@@ -750,11 +748,11 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
               {activeSession?.title || 'New Session'}
             </h1>
           </div>
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
             {(isAuthenticated || isGuest) && (
               <motion.button
                 onClick={logout}
-                className="text-gray-400 hover:text-pink-500 transition-colors flex-shrink-0 p-1.5 touch-manipulation flex items-center gap-1.5"
+                className="text-gray-400 hover:text-pink-500 transition-colors shrink-0 p-1.5 touch-manipulation flex items-center gap-1.5"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="Logout"
@@ -765,7 +763,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
             )}
             <motion.button
               onClick={() => setShowHistory(!showHistory)}
-              className="text-gray-400 hover:text-pink-500 transition-colors flex-shrink-0 p-1.5 sm:hidden touch-manipulation"
+              className="text-gray-400 hover:text-pink-500 transition-colors shrink-0 p-1.5 sm:hidden touch-manipulation"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               data-history-toggle
@@ -775,7 +773,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
             </motion.button>
             <motion.button
               onClick={onClose}
-              className="text-gray-400 hover:text-pink-500 transition-colors flex-shrink-0 p-1.5 touch-manipulation"
+              className="text-gray-400 hover:text-pink-500 transition-colors shrink-0 p-1.5 touch-manipulation"
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
               aria-label="Close chat"
@@ -804,10 +802,10 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className={`w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                <div className={`w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shrink-0 ${
                   message.role === 'assistant'
-                    ? 'bg-gradient-to-br from-pink-500 to-red-500'
-                    : 'bg-gradient-to-br from-gray-700 to-gray-800'
+                    ? 'bg-linear-to-br from-pink-500 to-red-500'
+                    : 'bg-linear-to-br from-gray-700 to-gray-800'
                 }`}>
                   {message.role === 'assistant' ? (
                     <Sparkles size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
@@ -818,8 +816,8 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
 
                 <div className={`max-w-[80%] sm:max-w-[75%] md:max-w-[70%] rounded-xl sm:rounded-2xl px-2.5 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 shadow-sm transition-all duration-200 ${
                   message.role === 'user'
-                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 text-white rounded-tr-none sm:rounded-tr-none'
-                    : 'bg-gradient-to-br from-pink-500/10 to-red-500/10 border border-pink-500/30 text-gray-200 rounded-tl-none sm:rounded-tl-none'
+                    ? 'bg-linear-to-br from-gray-800 to-gray-900 border border-gray-700 text-white rounded-tr-none sm:rounded-tr-none'
+                    : 'bg-linear-to-br from-pink-500/10 to-red-500/10 border border-pink-500/30 text-gray-200 rounded-tl-none sm:rounded-tl-none'
                 }`}>
                   <div className="text-[9px] sm:text-[10px] md:text-xs font-bold mb-0.5 sm:mb-1 uppercase tracking-wider opacity-60">
                     {message.role === 'user' ? 'user' : 'assistant'}
@@ -837,7 +835,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
                       ))}
                     </div>
                   )}
-                  <div className="whitespace-pre-wrap break-words leading-relaxed text-xs sm:text-sm md:text-base">
+                  <div className="whitespace-pre-wrap wrap-break-word leading-relaxed text-xs sm:text-sm md:text-base">
                     {message.content}
                   </div>
                   <div className="text-[8px] sm:text-[9px] md:text-[10px] mt-1 sm:mt-1.5 md:mt-2 opacity-40 text-right italic">
@@ -855,14 +853,14 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center flex-shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full bg-linear-to-br from-pink-500 to-red-500 flex items-center justify-center shrink-0">
                 <Sparkles size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
               </div>
-              <div className="bg-gradient-to-br from-pink-500/10 to-red-500/10 border border-pink-500/30 rounded-xl sm:rounded-2xl rounded-tl-none px-2.5 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 shadow-sm max-w-[80%] sm:max-w-[75%] md:max-w-[70%]">
+              <div className="bg-linear-to-br from-pink-500/10 to-red-500/10 border border-pink-500/30 rounded-xl sm:rounded-2xl rounded-tl-none px-2.5 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 shadow-sm max-w-[80%] sm:max-w-[75%] md:max-w-[70%]">
                 <div className="text-[9px] sm:text-[10px] md:text-xs font-bold mb-0.5 sm:mb-1 uppercase tracking-wider opacity-60 text-pink-400">
                   ASSISTANT
                 </div>
-                <div className="whitespace-pre-wrap break-words leading-relaxed text-xs sm:text-sm md:text-base text-gray-200">
+                <div className="whitespace-pre-wrap wrap-break-word leading-relaxed text-xs sm:text-sm md:text-base text-gray-200">
                   {displayedStreaming}
                   <span className="inline-block w-1.5 sm:w-2 h-3 sm:h-4 bg-pink-500 ml-1 animate-pulse" />
                 </div>
@@ -876,10 +874,10 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center flex-shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full bg-linear-to-br from-pink-500 to-red-500 flex items-center justify-center shrink-0">
                 <Sparkles size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
               </div>
-              <div className="bg-gradient-to-br from-pink-500/10 to-red-500/10 border border-pink-500/30 rounded-xl sm:rounded-2xl p-2.5 sm:p-3 md:p-4">
+              <div className="bg-linear-to-br from-pink-500/10 to-red-500/10 border border-pink-500/30 rounded-xl sm:rounded-2xl p-2.5 sm:p-3 md:p-4">
                 <div className="flex gap-1">
                   {[0, 1, 2].map((i) => (
                     <motion.div
@@ -906,7 +904,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
 
         {/* Input Area - drop zone like ChatGPT: drop on this area or the text field to add files */}
         <div
-          className={`p-3 sm:p-4 md:p-6 border-t border-pink-500/20 bg-black/50 backdrop-blur-sm flex-shrink-0 transition-colors rounded-t-lg ${isDraggingOver ? 'ring-2 ring-pink-500/50 ring-inset' : ''}`}
+          className={`p-3 sm:p-4 md:p-6 border-t border-pink-500/20 bg-black/50 backdrop-blur-sm shrink-0 transition-colors rounded-t-lg ${isDraggingOver ? 'ring-2 ring-pink-500/50 ring-inset' : ''}`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -974,7 +972,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={attachedFiles.length >= MAX_ATTACHMENTS || requestInFlight.current || isTyping}
-              className="flex-shrink-0 p-2.5 sm:p-3 md:p-4 rounded-lg bg-gradient-to-r from-pink-500/10 to-red-500/10 border border-pink-500/30 text-pink-400 hover:border-pink-500 hover:bg-pink-500/20 flex items-center justify-center min-w-[44px] sm:min-w-[52px] touch-manipulation transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="shrink-0 p-2.5 sm:p-3 md:p-4 rounded-lg bg-linear-to-r from-pink-500/10 to-red-500/10 border border-pink-500/30 text-pink-400 hover:border-pink-500 hover:bg-pink-500/20 flex items-center justify-center min-w-11 sm:min-w-13 touch-manipulation transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               aria-label="Attach image or file"
               title="Add image or file: click or drag & drop (images, PDF, Word – max 5MB images, 20MB docs)"
             >
@@ -984,10 +982,10 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
               <motion.button
                 onClick={handleVoiceToggle}
                 disabled={requestInFlight.current || isTyping || cooldownRef.current}
-                className={`flex-shrink-0 p-2.5 sm:p-3 md:p-4 rounded-lg flex items-center justify-center min-w-[44px] sm:min-w-[52px] touch-manipulation transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                className={`shrink-0 p-2.5 sm:p-3 md:p-4 rounded-lg flex items-center justify-center min-w-11 sm:min-w-13 touch-manipulation transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                   isListening
                     ? "bg-red-500/30 border-2 border-red-500 text-red-400 animate-pulse"
-                    : "bg-gradient-to-r from-pink-500/10 to-red-500/10 border border-pink-500/30 text-pink-400 hover:border-pink-500 hover:bg-pink-500/20"
+                    : "bg-linear-to-r from-pink-500/10 to-red-500/10 border border-pink-500/30 text-pink-400 hover:border-pink-500 hover:bg-pink-500/20"
                 }`}
                 whileHover={{ scale: requestInFlight.current || isTyping ? 1 : 1.05 }}
                 whileTap={{ scale: requestInFlight.current || isTyping ? 1 : 0.95 }}
@@ -1039,7 +1037,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
                 }
               }}
               placeholder="Type a message or drop images here…"
-              className="flex-1 bg-gradient-to-r from-pink-500/5 to-red-500/5 border border-pink-500/30 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 md:px-6 md:py-4 text-sm sm:text-base text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors touch-manipulation"
+              className="flex-1 bg-linear-to-r from-pink-500/5 to-red-500/5 border border-pink-500/30 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 md:px-6 md:py-4 text-sm sm:text-base text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors touch-manipulation"
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
@@ -1048,7 +1046,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
             />
             <motion.button
               onClick={handleSend}
-              className="px-4 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-4 bg-gradient-to-r from-pink-500 to-red-500 rounded-lg text-white flex items-center justify-center gap-1 sm:gap-2 touch-manipulation disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px] sm:min-w-[56px]"
+              className="px-4 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-4 bg-linear-to-r from-pink-500 to-red-500 rounded-lg text-white flex items-center justify-center gap-1 sm:gap-2 touch-manipulation disabled:opacity-50 disabled:cursor-not-allowed min-w-11 sm:min-w-14"
               whileHover={{ scale: (!input.trim() && !transcript && attachedFiles.length === 0) ? 1 : 1.05 }}
               whileTap={{ scale: (!input.trim() && !transcript && attachedFiles.length === 0) ? 1 : 0.95 }}
               disabled={(!input.trim() && !(isListening && transcript) && attachedFiles.length === 0) || isListening || requestInFlight.current || isTyping || cooldownRef.current}
@@ -1065,14 +1063,14 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
       <AnimatePresence>
         {showHistory && (
           <motion.aside
-            className="w-full sm:w-80 md:w-96 bg-gradient-to-b from-black to-red-950/10 border-l border-pink-500/20 flex flex-col fixed sm:relative inset-y-0 right-0 z-50 sm:z-auto"
+            className="w-full sm:w-80 md:w-96 bg-linear-to-b from-black to-red-950/10 border-l border-pink-500/20 flex flex-col fixed sm:relative inset-y-0 right-0 z-50 sm:z-auto"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           >
             {/* History Header */}
-            <div className="p-4 sm:p-6 border-b border-pink-500/20 flex-shrink-0">
+            <div className="p-4 sm:p-6 border-b border-pink-500/20 shrink-0">
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <h3 className="text-xs sm:text-sm text-pink-500 flex items-center gap-2 font-semibold">
                   <MessageSquare size={14} className="sm:w-4 sm:h-4" />
@@ -1092,7 +1090,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
 
               <motion.button
                 onClick={handleNewSession}
-                className="w-full p-2.5 sm:p-3 bg-gradient-to-r from-pink-500/10 to-red-500/10 border border-pink-500/30 rounded-lg flex items-center justify-center gap-2 text-pink-500 hover:border-pink-500 transition-colors touch-manipulation text-sm sm:text-base"
+                className="w-full p-2.5 sm:p-3 bg-linear-to-r from-pink-500/10 to-red-500/10 border border-pink-500/30 rounded-lg flex items-center justify-center gap-2 text-pink-500 hover:border-pink-500 transition-colors touch-manipulation text-sm sm:text-base"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -1131,12 +1129,12 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="p-3 sm:p-4 border-t border-pink-500/20 flex-shrink-0">
+              <div className="p-3 sm:p-4 border-t border-pink-500/20 shrink-0">
                 <div className="flex items-center justify-between gap-2">
                   <motion.button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className={`p-1.5 sm:p-2 touch-manipulation min-w-[36px] sm:min-w-[40px] ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed opacity-50' : 'text-gray-400 hover:text-pink-500'}`}
+                    className={`p-1.5 sm:p-2 touch-manipulation min-w-9 sm:min-w-10 ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed opacity-50' : 'text-gray-400 hover:text-pink-500'}`}
                     whileHover={currentPage !== 1 ? { scale: 1.1 } : {}}
                     whileTap={currentPage !== 1 ? { scale: 0.9 } : {}}
                     aria-label="Previous page"
@@ -1153,7 +1151,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
                           onClick={() => handlePageChange(page as number)}
                           className={`w-7 h-7 sm:w-8 sm:h-8 rounded text-xs sm:text-sm transition-colors touch-manipulation ${
                             currentPage === page
-                              ? 'bg-gradient-to-r from-pink-500 to-red-500 text-white'
+                              ? 'bg-linear-to-r from-pink-500 to-red-500 text-white'
                               : 'text-gray-400 hover:text-pink-500'
                           }`}
                           aria-label={`Go to page ${page}`}
@@ -1166,7 +1164,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
                   <motion.button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className={`p-1.5 sm:p-2 touch-manipulation min-w-[36px] sm:min-w-[40px] ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed opacity-50' : 'text-gray-400 hover:text-pink-500'}`}
+                    className={`p-1.5 sm:p-2 touch-manipulation min-w-9 sm:min-w-10 ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed opacity-50' : 'text-gray-400 hover:text-pink-500'}`}
                     whileHover={currentPage !== totalPages ? { scale: 1.1 } : {}}
                     whileTap={currentPage !== totalPages ? { scale: 0.9 } : {}}
                     aria-label="Next page"
@@ -1184,7 +1182,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
       {!showHistory && (
         <motion.button
           onClick={() => setShowHistory(true)}
-          className="hidden sm:flex fixed right-0 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-gradient-to-l from-pink-500 to-red-500 text-white rounded-l-lg z-40 touch-manipulation"
+          className="hidden sm:flex fixed right-0 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-linear-to-l from-pink-500 to-red-500 text-white rounded-l-lg z-40 touch-manipulation"
           initial={{ x: 48 }}
           animate={{ x: 0 }}
           whileHover={{ x: -5 }}
@@ -1200,7 +1198,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
       <AnimatePresence>
         {previewImage && (
           <motion.div
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 sm:p-6"
+            className="fixed inset-0 z-60 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 sm:p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

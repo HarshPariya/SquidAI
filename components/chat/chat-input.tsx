@@ -28,7 +28,7 @@ export function ChatInput({ onSend, disabled, className }: ChatInputProps) {
                 className="relative max-w-4xl mx-auto flex items-end gap-2"
             >
                 <div className="relative flex-1 group">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    <div className="absolute -inset-0.5 bg-linear-to-r from-cyan-500 to-violet-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
                     <Input
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
