@@ -911,7 +911,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          {voiceError && isListening && (
+          {voiceError && (
             <p className="text-red-400 text-xs mb-2">{voiceError}</p>
           )}
           {attachedFiles.length > 0 && (
@@ -1002,8 +1002,10 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
               </motion.button>
             ) : (
               <p className="text-xs text-gray-400 italic mt-1">
-                Voice input is not supported in your browser/device. Use a desktop Chrome/Edge
-                (secure context) for microphone access.
+                Voice input is not supported in your browser/device. It only works in secure
+                desktop Chrome/Edge (HTTPS). Mobile support is spotty – Android Chrome with
+                HTTPS may work, but iOS/Safari and many other mobile browsers are not
+                compatible.
               </p>
             )}
             <Input

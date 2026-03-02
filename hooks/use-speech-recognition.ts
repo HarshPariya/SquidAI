@@ -68,13 +68,22 @@ export function useSpeechRecognition() {
     /* eslint-disable react-hooks/set-state-in-effect -- support detection must run after mount */
     if (typeof window === "undefined") return;
 
+    // make sure we are running in a secure context (required by Chrome mobile)
+    const secure = window.isSecureContext;
+    const ua = navigator.userAgent || "";
+    const isIOS = /iP(hone|od|ad)/.test(ua);
+
     const test = createRecognition();
-    if (test) {
+    if (test && secure && !isIOS) {
       setIsSupported(true);
-      // keep a non-started instance around in case someone queries it; we won't use it for listening
-      recognitionRef.current = test;
+      recognitionRef.current = test; // keep a spare
     } else {
       setIsSupported(false);
+      if (!secure) {
+        setError("Web Speech API requires HTTPS/secure context");
+      } else if (isIOS) {
+        setError("Speech recognition not supported on iOS");
+      }
     }
 
     return () => {
