@@ -11,131 +11,113 @@ export function useSpeechRecognition() {
   const [error, setError] = useState<string | null>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
-  useEffect(() => {
-    /* eslint-disable react-hooks/set-state-in-effect -- support detection must run after mount */
-    if (typeof window === "undefined") return;
-
+  // helper factory used by initial setup and every time we start listening
+  const createRecognition = useCallback((): SpeechRecognition | null => {
     const SpeechRecognitionAPI =
       (window as Window & { SpeechRecognition?: typeof SpeechRecognition }).SpeechRecognition ||
       (window as Window & { webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition;
 
-    if (!SpeechRecognitionAPI) {
-      setIsSupported(false);
-      return;
-    }
+    if (!SpeechRecognitionAPI) return null;
 
-    setIsSupported(true);
-    
-    const createRecognition = () => {
-      const recognition = new SpeechRecognitionAPI();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = "en-US";
+    const recognition = new SpeechRecognitionAPI();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = "en-US";
 
-      recognition.onresult = (event: SpeechRecognitionEvent) => {
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          const result = event.results[i];
-          const text = result[0].transcript;
-          if (result.isFinal) {
-            finalizedRef.current += (finalizedRef.current ? " " : "") + text;
-          }
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const result = event.results[i];
+        const text = result[0].transcript;
+        if (result.isFinal) {
+          finalizedRef.current += (finalizedRef.current ? " " : "") + text;
         }
-        const interims = [...event.results].slice(event.resultIndex).filter((r) => !r.isFinal);
-        const interimText = interims.length > 0 ? interims[interims.length - 1][0].transcript : "";
-        setTranscript(finalizedRef.current + (interimText ? " " + interimText : ""));
-      };
-
-      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-        if (event.error === "not-allowed") {
-          setError("Microphone access denied");
-          try {
-            recognition.stop();
-          } catch {
-            // ignore
-          }
-          setIsListening(false);
-        } else if (event.error === "no-speech") {
-          // User stopped without speaking - not a critical error
-        } else {
-          setError(event.error);
-        }
-      };
-
-      recognition.onend = () => {
-        setIsListening(false);
-      };
-
-      return recognition;
+      }
+      const interims = [...event.results].slice(event.resultIndex).filter((r) => !r.isFinal);
+      const interimText = interims.length > 0 ? interims[interims.length - 1][0].transcript : "";
+      setTranscript(finalizedRef.current + (interimText ? " " + interimText : ""));
     };
 
-    recognitionRef.current = createRecognition();
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+      if (event.error === "not-allowed") {
+        setError("Microphone access denied");
+        try {
+          recognition.abort();
+        } catch {
+          // ignore
+        }
+        setIsListening(false);
+      } else if (event.error === "no-speech") {
+        // ignore
+      } else {
+        setError(event.error);
+      }
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+      // clear reference so we always create a fresh one next time
+      if (recognitionRef.current === recognition) {
+        recognitionRef.current = null;
+      }
+    };
+
+    return recognition;
+  }, []);
+
+  useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- support detection must run after mount */
+    if (typeof window === "undefined") return;
+
+    const test = createRecognition();
+    if (test) {
+      setIsSupported(true);
+      // keep a non-started instance around in case someone queries it; we won't use it for listening
+      recognitionRef.current = test;
+    } else {
+      setIsSupported(false);
+    }
+
     return () => {
       recognitionRef.current?.abort();
       recognitionRef.current = null;
     };
-  }, []);
+  }, [createRecognition]);
 
   const startListening = useCallback(() => {
     if (!isSupported) return;
     setError(null);
     setTranscript("");
     finalizedRef.current = "";
+
+    // abort any previous instance just to be safe
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.abort();
+      } catch {}
+      recognitionRef.current = null;
+    }
+
     try {
-      // Create a fresh recognition instance since Web Speech API cannot restart after ending
-      const SpeechRecognitionAPI =
-        (window as Window & { SpeechRecognition?: typeof SpeechRecognition }).SpeechRecognition ||
-        (window as Window & { webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition;
-
-      if (!SpeechRecognitionAPI) return;
-
-      const recognition = new SpeechRecognitionAPI();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = "en-US";
-
-      recognition.onresult = (event: SpeechRecognitionEvent) => {
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          const result = event.results[i];
-          const text = result[0].transcript;
-          if (result.isFinal) {
-            finalizedRef.current += (finalizedRef.current ? " " : "") + text;
-          }
-        }
-        const interims = [...event.results].slice(event.resultIndex).filter((r) => !r.isFinal);
-        const interimText = interims.length > 0 ? interims[interims.length - 1][0].transcript : "";
-        setTranscript(finalizedRef.current + (interimText ? " " + interimText : ""));
-      };
-
-      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-        if (event.error === "not-allowed") {
-          setError("Microphone access denied");
-          setIsListening(false);
-        } else if (event.error === "no-speech") {
-          // ignore
-        } else {
-          setError(event.error);
-        }
-      };
-
-      recognition.onend = () => {
-        setIsListening(false);
-      };
+      const recognition = createRecognition();
+      if (!recognition) return;
 
       recognitionRef.current = recognition;
       recognition.start();
       setIsListening(true);
-    } catch {
+    } catch (err) {
+      console.error("speech start error", err);
       setError("Could not start microphone");
     }
-  }, [isSupported]);
+  }, [isSupported, createRecognition]);
 
   const stopListening = useCallback(() => {
     if (!recognitionRef.current) return;
     try {
-      recognitionRef.current.stop();
+      recognitionRef.current.abort();
     } catch {
       // ignore
     }
+    recognitionRef.current = null;
     setIsListening(false);
   }, []);
 

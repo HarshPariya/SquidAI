@@ -23,6 +23,8 @@ import { useChatHistory } from '@/components/chat/chat-history-context';
 import { useAuth } from '@/components/auth/auth-context';
 import { ChatListItem } from '@/components/chat/chat-list-item';
 import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
+import { Input } from '@/components/ui/input';
+
 interface Message {
   id: string;
   role: 'user' | 'assistant';
@@ -50,7 +52,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
     updateSessionTitle,
     deleteSession
   } = useChatHistory();
-  const { user, isAuthenticated, isGuest, logout } = useAuth();
+  const { isAuthenticated, isGuest, logout } = useAuth();
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -978,7 +980,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
             >
               <ImagePlus size={20} className="sm:w-5 sm:h-5" />
             </motion.button>
-            {isVoiceSupported && (
+            {isVoiceSupported ? (
               <motion.button
                 onClick={handleVoiceToggle}
                 disabled={requestInFlight.current || isTyping || cooldownRef.current}
@@ -998,11 +1000,17 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
                   <Mic size={20} className="sm:w-5 sm:h-5" />
                 )}
               </motion.button>
+            ) : (
+              <p className="text-xs text-gray-400 italic mt-1">
+                Voice input is not supported in your browser/device. Use a desktop Chrome/Edge
+                (secure context) for microphone access.
+              </p>
             )}
-            <input
+            <Input
               type="text"
               value={isListening && transcript ? `${input}${input ? " " : ""}${transcript}` : input}
               onChange={(e) => !isListening && setInput(e.target.value)}
+              className="flex-1 bg-linear-to-r from-pink-500/5 to-red-500/5 border border-pink-500/30 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 md:px-6 md:py-4 text-sm sm:text-base text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors touch-manipulation focus:ring-0 min-h-12.5"
               onDragOver={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -1037,7 +1045,6 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
                 }
               }}
               placeholder="Type a message or drop images here…"
-              className="flex-1 bg-linear-to-r from-pink-500/5 to-red-500/5 border border-pink-500/30 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 md:px-6 md:py-4 text-sm sm:text-base text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors touch-manipulation"
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"

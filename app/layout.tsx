@@ -31,6 +31,8 @@ export const metadata: Metadata = {
   title: "SquidAI | Ultimate Technical Assistant",
   description: "Your Ultimate Technical Assistant for code, architecture, and problem solving.",
   icons: { icon: "/icon.svg" },
+  // ensure proper scaling on mobile devices
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
