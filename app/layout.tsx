@@ -1,5 +1,5 @@
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fragment } from "react";
 import { Geist, Geist_Mono, Orbitron, Rajdhani } from "next/font/google";
 import "./globals.css";
@@ -27,13 +27,17 @@ const rajdhani = Rajdhani({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "SquidAI | Ultimate Technical Assistant",
   description: "Your Ultimate Technical Assistant for code, architecture, and problem solving.",
   icons: { icon: "/icon.svg" },
-  // ensure proper scaling on mobile devices
-  viewport: "width=device-width, initial-scale=1",
 };
+
 
 export default function RootLayout({
   children,

@@ -107,6 +107,7 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
     transcript,
     isSupported: isVoiceSupported,
     error: voiceError,
+    isTranscribing,
     toggleListening,
     stopAndGetTranscript,
   } = useSpeechRecognition();
@@ -184,9 +185,9 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleVoiceToggle = () => {
+  const handleVoiceToggle = async () => {
     if (isListening) {
-      const finalTranscript = stopAndGetTranscript();
+      const finalTranscript = await stopAndGetTranscript();
       if (finalTranscript.trim()) {
         setInput((prev) => (prev.trim() ? `${prev.trim()} ${finalTranscript.trim()}` : finalTranscript.trim()));
       }
@@ -980,34 +981,29 @@ export function ChatInterface({ onClose }: { onClose: () => void }) {
             >
               <ImagePlus size={20} className="sm:w-5 sm:h-5" />
             </motion.button>
-            {isVoiceSupported ? (
-              <motion.button
-                onClick={handleVoiceToggle}
-                disabled={requestInFlight.current || isTyping || cooldownRef.current}
-                className={`shrink-0 p-2.5 sm:p-3 md:p-4 rounded-lg flex items-center justify-center min-w-11 sm:min-w-13 touch-manipulation transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                  isListening
-                    ? "bg-red-500/30 border-2 border-red-500 text-red-400 animate-pulse"
-                    : "bg-linear-to-r from-pink-500/10 to-red-500/10 border border-pink-500/30 text-pink-400 hover:border-pink-500 hover:bg-pink-500/20"
-                }`}
-                whileHover={{ scale: requestInFlight.current || isTyping ? 1 : 1.05 }}
-                whileTap={{ scale: requestInFlight.current || isTyping ? 1 : 0.95 }}
-                aria-label={isListening ? "Stop listening" : "Voice input"}
-                title={isListening ? "Stop listening" : "Speak to type"}
-              >
-                {isListening ? (
-                  <MicOff size={20} className="sm:w-5 sm:h-5" />
-                ) : (
-                  <Mic size={20} className="sm:w-5 sm:h-5" />
-                )}
-              </motion.button>
-            ) : (
-              <p className="text-xs text-gray-400 italic mt-1">
-                Voice input is not supported in your browser/device. It only works in secure
-                desktop Chrome/Edge (HTTPS). Mobile support is spotty – Android Chrome with
-                HTTPS may work, but iOS/Safari and many other mobile browsers are not
-                compatible.
-              </p>
-            )}
+            <motion.button
+              onClick={handleVoiceToggle}
+              disabled={!isVoiceSupported || isTranscribing || requestInFlight.current || isTyping || cooldownRef.current}
+              className={`shrink-0 p-2.5 sm:p-3 md:p-4 rounded-lg flex items-center justify-center min-w-11 sm:min-w-13 touch-manipulation transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                isTranscribing
+                  ? "bg-amber-500/30 border-2 border-amber-500 text-amber-400 animate-pulse"
+                  : isListening
+                  ? "bg-red-500/30 border-2 border-red-500 text-red-400 animate-pulse"
+                  : "bg-linear-to-r from-pink-500/10 to-red-500/10 border border-pink-500/30 text-pink-400 hover:border-pink-500 hover:bg-pink-500/20"
+              }`}
+              whileHover={{ scale: (!isVoiceSupported || isTranscribing || requestInFlight.current || isTyping) ? 1 : 1.05 }}
+              whileTap={{ scale: (!isVoiceSupported || isTranscribing || requestInFlight.current || isTyping) ? 1 : 0.95 }}
+              aria-label={isTranscribing ? "Processing audio…" : isListening ? "Stop listening" : !isVoiceSupported ? "Voice not available" : "Voice input"}
+              title={isTranscribing ? "Processing audio…" : isListening ? "Stop listening" : !isVoiceSupported ? "Voice not available in this browser" : "Speak to type"}
+            >
+              {isTranscribing ? (
+                <div className="w-5 h-5 sm:w-5 sm:h-5 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+              ) : isListening ? (
+                <MicOff size={20} className="sm:w-5 sm:h-5" />
+              ) : (
+                <Mic size={20} className="sm:w-5 sm:h-5" />
+              )}
+            </motion.button>
             <Input
               type="text"
               value={isListening && transcript ? `${input}${input ? " " : ""}${transcript}` : input}
