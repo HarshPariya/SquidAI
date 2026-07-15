@@ -191,13 +191,6 @@ NextAuth is using localhost as the callback URL. On **Render → Environment**, 
 
 ---
 
-## 📄 Docs
-
-- [MongoDB setup](./MONGODB_SETUP.md) — Connect MongoDB Atlas for chat history.
-- [Screenshots](./docs/screenshots/README.md) — How to add screenshots for the README.
-
----
-
 ## 📜 License
 
 This project is private/all rights reserved unless otherwise stated. Use and distribution subject to the repository license.
